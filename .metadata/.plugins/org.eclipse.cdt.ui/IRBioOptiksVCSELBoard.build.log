@@ -1,0 +1,21 @@
+
+**** Build of configuration Debug for project IRBioOptiksVCSELBoard ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+'Building file: ../VCSEL.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.1.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="C:/ti/ccsv7/ccs_base/msp430/include" --include_path="C:/Users/Jalen/Dropbox/Classes/Code/C Code/Senior Design/IRBioOptiksVCSELBoard" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.1.LTS/include" --advice:power=all --define=__MSP430F2013__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="VCSEL.d"  "../VCSEL.c"
+"../VCSEL.c", line 43: remark #1534-D: (ULP 7.1) Detected use of global variable "LEDCounter" within one function "main". Recommend placing variable in the function locally
+"../VCSEL.c", line 44: remark #1534-D: (ULP 7.1) Detected use of global variable "MaxCycles" within one function "TimerAInterrupt". Recommend placing variable in the function locally
+"../VCSEL.c", line 75 (col. 22): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+'Finished building: ../VCSEL.c'
+' '
+'Building target: IRBioOptiksVCSELBoard.out'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.1.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430F2013__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"IRBioOptiksVCSELBoard.map" --heap_size=0 --stack_size=50 -i"C:/ti/ccsv7/ccs_base/msp430/include" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.1.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="IRBioOptiksVCSELBoard_linkInfo.xml" --use_hw_mpy=none --rom_model -o "IRBioOptiksVCSELBoard.out" "./VCSEL.obj" "../lnk_msp430f2013.cmd"  -llibc.a 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: IRBioOptiksVCSELBoard.out'
+' '
+
+**** Build Finished ****

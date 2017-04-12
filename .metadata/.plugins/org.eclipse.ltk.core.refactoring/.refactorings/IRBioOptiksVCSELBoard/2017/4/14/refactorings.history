@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;IRBioOptiksVCSELBoard/LED.c&apos; to &apos;VCSEL.c&apos;" description="Rename resource &apos;LED.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="LED.c" name="VCSEL.c" stamp="1491578232248" updateReferences="true"/>
+</session>
