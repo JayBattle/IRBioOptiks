@@ -10,7 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./Demo.obj" \
+"./Dev.obj" \
 "../lnk_msp430f2013.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -153,8 +153,8 @@ IRBioOptiksDevBoard.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Demo.obj" 
-	-$(RM) "Demo.d" 
+	-$(RM) "Dev.obj" 
+	-$(RM) "Dev.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

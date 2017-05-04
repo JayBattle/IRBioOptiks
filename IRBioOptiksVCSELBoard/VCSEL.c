@@ -42,9 +42,9 @@ P1.5 Implant LED PWM
 //Declare Global Variables:
 static const int LEDCounter = 4245;         //Set equal to (Divider*ClockSpeed)/BlinksPerSec)), ((1*509420Hz)/120)=4245
 static const double MaxCycles = 14398;      //Set equal to ((TreatmentTime*2)/BlinkTime), ((30s*2)/.0041672s)=14398
+int Minutes = 0;                            //Declare Minute Count variable, counts to Total Treatment Time (10 minutes)
+int DebugLedCounter = 0;                           //Declare CounterA variable,
 int CycleCounter = 0;                       //Declare CycleCounter variable,
-int TreatmentState = 0x01;                  //Declare treatment state variable
-
 
 //Method: main
 //Description: This method contains the main code, set up the clocks and interrupt.
@@ -53,7 +53,8 @@ int TreatmentState = 0x01;                  //Declare treatment state variable
 void main(void) {                           //Start of Main
   volatile unsigned int count;              //Counter is an integer. It is volatile to trick the compiler into not optimizing the empty loop
   WDTCTL = WDTPW + WDTHOLD;                 //Stop hardware Watchdog Timer
-  P1DIR |= BIT0 + BIT5;                     //Set GPIO P1.0 & P1.5 to "output" direction
+  P1DIR |= BIT0 + BIT4;                     //Set GPIO P1.0, P1.4, & P1.5 to "output" direction
+  P1OUT |= BIT4;                            //Start P1.4 Implant LEDs
   CCTL0 = CCIE;                             //CCR0 Interrupt Enabled
   CCR0 = LEDCounter;                        //Set CCR0 Register to starting value
   TACTL = TASSEL_2 + MC_1 + ID_0;           //Set SMCLK to Up mode with a divider of 0
@@ -68,15 +69,20 @@ void main(void) {                           //Start of Main
 //Returns: void
 #pragma vector=TIMERA0_VECTOR
 __interrupt void TimerAInterrupt(void){
-    if (TreatmentState == 0x01) {               //If TreatmentState is true
-        P1OUT ^= BIT0 + BIT5;                   //then Toggle P1.0 & P1.5 Debug & Implant LEDs
+    DebugLedCounter++;                        //Increment DebugLedCounter
+    if (DebugLedCounter == 250) {             //If TreatmentState is true
+        P1OUT ^= BIT0;                        //then Toggle P1.0 Debug LED
+        DebugLedCounter =0;                   //reset DebugLedCounter
     }
-    CycleCounter++;                             //Increment CycleCounterA
-    if (CycleCounter == MaxCycles) {            //Check if CycleCounter is greater that MaxCycles
-        P1OUT &= 0x00;                          //Turn off all Outputs including Debug & Implant LEDs
-        CycleCounter = 0;                       //Reset CycleCounter
-        TreatmentState ^= 0x01;                 //Toggle TreatmentState
-    }                                           //End CycleCounter Loop
-}                                               //End of TimerA interrupt
+    CycleCounter++;                           //Increment CycleCounterA
+    if (CycleCounter == MaxCycles) {          //Check if CycleCounter is greater that MaxCycles
+        CycleCounter = 0;                     //Reset CycleCounter
+        Minutes++;
+        if (Minutes == 10) {
+            P1OUT &= 0x00;                    //Turn off all Outputs including Debug & Implant LEDs
+            CCTL0 &= ~CCIE;                   //End CCR0 Interrupt Enabled
+        }
+    }                                         //End CycleCounter Loop
+}                                             //End of TimerA interrupt
 
 

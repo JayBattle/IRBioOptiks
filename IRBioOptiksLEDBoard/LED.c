@@ -53,7 +53,7 @@ int TreatmentState = 0x01;                  //Declare treatment state variable
 void main(void) {                           //Start of Main
   volatile unsigned int count;              //Counter is an integer. It is volatile to trick the compiler into not optimizing the empty loop
   WDTCTL = WDTPW + WDTHOLD;                 //Stop hardware Watchdog Timer
-  P1DIR |= BIT0 + BIT5;                     //Set GPIO P1.0 & P1.5 to "output" direction
+  P1DIR |= BIT0 + BIT4 + BIT5;              //Set GPIO P1.0, P1.4, & P1.5 to "output" direction
   CCTL0 = CCIE;                             //CCR0 Interrupt Enabled
   CCR0 = LEDCounter;                        //Set CCR0 Register to starting value
   TACTL = TASSEL_2 + MC_1 + ID_0;           //Set SMCLK to Up mode with a divider of 0
@@ -69,7 +69,7 @@ void main(void) {                           //Start of Main
 #pragma vector=TIMERA0_VECTOR
 __interrupt void TimerAInterrupt(void){
     if (TreatmentState == 0x01) {               //If TreatmentState is true
-        P1OUT ^= BIT0 + BIT5;                   //then Toggle P1.0 & P1.5 Debug & Implant LEDs
+        P1OUT ^= BIT0 + BIT4 + BIT5;            //then Toggle P1.0, P1.4 & P1.5 Debug & Implant LEDs
     }
     CycleCounter++;                             //Increment CycleCounterA
     if (CycleCounter == MaxCycles) {            //Check if CycleCounter is greater that MaxCycles
